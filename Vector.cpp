@@ -1,16 +1,12 @@
 #include "Vector.hpp"
 
-
-
-
-
 vector::vector(double* arr, int len)
 {
 	this->dim_ = len;
 	this->data_ = new double[len];
 	for (int i = 0; i < len; ++i)
 	{
-		this->data_[i] = arr[i];//*(data_+i)=*(arr+i)
+		this->data_[i] = arr[i];
 	}
 }
 
@@ -85,11 +81,11 @@ vector& vector::operator=(vector&& other)
 }
 
 double&       vector::operator[](int idx)
-{
+{	
 	return data_[idx];
 }
 const double& vector::operator[](int idx) const
-{
+{	
 	return data_[idx];
 }
 
@@ -117,7 +113,7 @@ std::ostream& operator<<(std::ostream& os, const vector& o)
 }
 
 
-//ïîñòôèêñíûé äåêðåìåíò
+//Ð¿Ð¾ÑÑ‚Ñ„Ð¸ÐºÑÐ½Ñ‹Ð¹ Ð´ÐµÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚
 const vector vector::operator--(int)
 {
 	vector old(dim_);
@@ -128,7 +124,7 @@ const vector vector::operator--(int)
 	}
 	return old;
 }
-//ïðåôèêñíûé äåêðåìåíò
+//Ð¿Ñ€ÐµÑ„Ð¸ÐºÑÐ½Ñ‹Ð¹ Ð´ÐµÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚
 vector& vector::operator--()
 {
 	for (int i = 0; i < dim_; ++i)
@@ -140,7 +136,7 @@ vector& vector::operator--()
 }
 
 
-//ïîñòôèêñíûé èíêðåìåíò
+//Ð¿Ð¾ÑÑ‚Ñ„Ð¸ÐºÑÐ½Ñ‹Ð¹ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚
 const vector vector::operator++(int)
 {
 	vector old(dim_);
@@ -151,7 +147,7 @@ const vector vector::operator++(int)
 	}
 	return old;
 }
-//ïðåôèêñíûé èíêðåìåíò
+//Ð¿Ñ€ÐµÑ„Ð¸ÐºÑÐ½Ñ‹Ð¹ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚
 vector& vector::operator++()
 {
 	for (int i = 0; i < dim_; ++i)
@@ -181,16 +177,16 @@ double       vector::operator*(const vector& other) const
 	}
 	return result;
 }
-vector operator+(const vector& a, double* b)
+vector       vector::operator+ (double* v2)
 {
-	vector result(a.get_dim() * 2);
-	for (int i = 0; i < a.get_dim(); ++i)
+	vector result(2*this->dim_);
+	for (int i = 0; i < this->dim_; ++i)
 	{
-		result[i] = a[i];
+		result[i] = this->data_[i];
 	}
-	for (int i = 0; i < a.get_dim(); ++i)
+	for (int i = 0; i < this->dim_; ++i)
 	{
-		result[i + a.get_dim()] = b[i];
+		result[i + this->dim_] = v2[i];
 	}
 	return result;
 }
