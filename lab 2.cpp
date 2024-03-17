@@ -1,11 +1,12 @@
-﻿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include "Vector.hpp"
 
 int main()
 {   
-    /*std::cout<<sizeof vector<< "\n";
-    vector a(3);
+    double db[3] = { 1.,2.,3. };
+
+    vector a(db,3);
     std::cin >> a;
     std::cout << "a: " << a << "\n";
     vector b(a);
@@ -15,7 +16,11 @@ int main()
     std::cout << "c: " << c << "\n";
     vector d = std::move(c);
     c.~vector();
-    std::cout << "d: " << d << "\n";*/
+    std::cout << "d: " << d << "\n";
+
+    const vector ca = vector(db, 2);
+    std::cout << "const vector[1]: " << ca[1] << std::endl;
+
 
     std::ifstream file("input.txt");
 
@@ -28,7 +33,7 @@ int main()
     int dim;
     file >> dim;
     vector v1(dim);
-    vector v2(dim);
+    double* v2 = new double [dim];
     for(int i =0;i<dim;++i)
     {
         file >> v1[i];
@@ -41,8 +46,16 @@ int main()
     std::cout << v1 << "\n";
 
     std::cout << "vector2 :\n";
-    std::cout << v2 << "\n";
-    double sk = v1 * v2;
+    vector v2v(v2, dim);
+    std::cout << v2v << "\n";
+
+    vector v3 = v1 + v2;
+    std::cout << "result\n";
+    for(int i = 0;i<v3.get_dim();++i)
+    {
+        std::cout << v3[i] << ' ';
+    }
+    std::cout << "\n";
     std::ofstream out("out.txt");
 
     if (!out.is_open())
@@ -50,5 +63,9 @@ int main()
         std::cout << "errror: file not open \n";
         return 1;
     }
-    out << "dot product: " << sk << "\n";
+    out << "operator+: " << v3 << "\n";
+
+    file.close();
+    out.close();
+    delete[] v2;
 }
